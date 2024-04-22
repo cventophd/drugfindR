@@ -37,96 +37,96 @@
 #'
 #' @examples
 #' TRUE
-investigate_signature <- function(expr,
-                                  output_lib,
-                                  filter_threshold = NULL,
-                                  filter_prop = NULL,
-                                  similarity_threshold = 0.2,
-                                  paired = TRUE,
-                                  output_cell_lines = NULL,
-                                  gene_column = "Symbol",
-                                  logfc_column = "logFC",
-                                  pval_column = "PValue",
-                                  source_name = "Input",
-                                  source_cell_line = "NA",
-                                  source_time = "NA",
-                                  source_concentration = "NA") {
+investigateSignature <- function(expr,
+                                 outputLib,
+                                 filterThreshold = NULL,
+                                 filterProp = NULL,
+                                 similarityThreshold = 0.2,
+                                 paired = TRUE,
+                                 outputCellLines = NULL,
+                                 geneColumn = "Symbol",
+                                 logfcColumn = "logFC",
+                                 pvalColumn = "PValue",
+                                 sourceName = "Input",
+                                 sourceCellLine = "NA",
+                                 sourceTime = "NA",
+                                 sourceConcentration = "NA") {
     libs <- c("OE", "KD", "CP")
 
-    if (!output_lib %in% libs) {
+    if (!outputLib %in% libs) {
         stop("Output library must be one of 'OE', 'KD', 'CP'")
     }
 
-    if (missing(output_lib)) {
+    if (missing(outputLib)) {
         stop("Please specify an output library")
     }
 
-    expr_signature <- expr %>%
-        prepare_signature(
-            gene_column = gene_column,
-            logfc_column = logfc_column,
-            pval_column = pval_column
+    exprSignature <- expr %>%
+        prepareSignature(
+            gene_column = geneColumn,
+            logfc_column = logfcColumn,
+            pval_column = pvalColumn
         )
 
-    signature_id <- unique(expr_signature[["signatureID"]])
+    signatureId <- unique(exprSignature[["signatureID"]])
 
     if (paired) {
-        filtered_up <- expr_signature %>%
-            filter_signature(
+        filteredUp <- exprSignature %>%
+            filterSignature(
                 direction = "up",
-                threshold = filter_threshold,
-                prop = filter_prop
+                threshold = filterThreshold,
+                prop = filterProp
             )
 
-        filtered_down <- expr_signature %>%
-            filter_signature(
+        filteredDown <- exprSignature %>%
+            filterSignature(
                 direction = "down",
-                threshold = filter_threshold,
-                prop = filter_prop
+                threshold = filterThreshold,
+                prop = filterProp
             )
 
-        concordant_up <- filtered_up %>%
-            get_concordants(ilincs_library = output_lib, sig_direction = "Up")
+        concordantUp <- filteredUp %>%
+            getConcordants(ilincs_library = outputLib, sig_direction = "Up")
 
-        concordant_down <- filtered_down %>%
-            get_concordants(ilincs_library = output_lib, sig_direction = "Down")
+        concordantDown <- filteredDown %>%
+            getConcordants(ilincs_library = outputLib, sig_direction = "Down")
 
 
-        consensus_targets <-
-            consensus_concordants(
-                concordant_up,
-                concordant_down,
+        consensusTargets <-
+            consensusConcordants(
+                concordantUp,
+                concordantDown,
                 paired = paired,
-                cell_line = output_cell_lines,
-                cutoff = similarity_threshold
+                cell_line = outputCellLines,
+                cutoff = similarityThreshold
             )
     } else {
-        filtered <- expr_signature %>%
-            filter_signature(
+        filtered <- exprSignature %>%
+            filterSignature(
                 direction = "any",
-                threshold = filter_threshold,
-                prop = filter_prop
+                threshold = filterThreshold,
+                prop = filterProp
             )
 
         concordants <- filtered %>%
-            get_concordants(ilincs_library = output_lib)
+            getConcordants(ilincs_library = outputLib)
 
-        consensus_targets <-
-            consensus_concordants(
+        consensusTargets <-
+            consensusConcordants(
                 concordants,
                 paired = paired,
-                cell_line = output_cell_lines,
-                cutoff = similarity_threshold
+                cell_line = outputCellLines,
+                cutoff = similarityThreshold
             )
     }
 
-    augmented <- consensus_targets %>%
+    augmented <- consensusTargets %>%
         dplyr::mutate(
-            SourceSignature = signature_id,
-            Source = source_name,
-            SourceCellLine = source_cell_line,
-            SourceTime = source_time,
-            InputSignatureDirection = sig_direction
+            SourceSignature = signatureId,
+            Source = sourceName,
+            SourceCellLine = sourceCellLine,
+            SourceTime = sourceTime,
+            InputSignatureDirection = sigDirection
         ) %>%
         dplyr::select(
             dplyr::any_of(c(

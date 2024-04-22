@@ -6,20 +6,20 @@
 #'
 #' @examples
 #' TRUE
-target_rename <- function(input_names) {
-    if ("treatment" %in% input_names) {
-        new_cols <- c(
+targetRename <- function(inputNames) {
+    if ("treatment" %in% inputNames) {
+        newCols <- c(
             "TargetSignature", "Target", "TargetCellLine",
             "TargetTime", "Similarity", "sig_direction"
         )
     } else {
-        new_cols <- c(
+        newCols <- c(
             "TargetSignature", "Target", "TargetCellLine",
             "TargetTime", "TargetConcentration", "Similarity", "sig_direction"
         )
     }
 
-    new_cols
+    newCols
 }
 
 #' Generate a Consensus list of Targets
@@ -48,10 +48,10 @@ target_rename <- function(input_names) {
 #'
 #' @examples
 #' TRUE
-consensus_concordants <- function(...,
-                                  paired = FALSE,
-                                  cutoff = 0.321,
-                                  cell_line = NULL) {
+consensusConcordants <- function(...,
+                                 paired = FALSE,
+                                 cutoff = 0.321,
+                                 cellLine = NULL) {
     if (paired && length(list(...)) != 2L) {
         stop("Paired analysis requires two data frames")
     } else if (!paired && length(list(...)) != 1L) {
@@ -60,9 +60,9 @@ consensus_concordants <- function(...,
 
     concordants <- dplyr::bind_rows(list(...))
 
-    if (!is.null(cell_line)) {
+    if (!is.null(cellLine)) {
         concordants <- concordants %>%
-            dplyr::filter(.data[["cellline"]] %in% cell_line)
+            dplyr::filter(.data[["cellline"]] %in% cellLine)
     }
 
     filtered <- concordants %>%
@@ -80,7 +80,7 @@ consensus_concordants <- function(...,
             ))
         ) %>%
         dplyr::arrange(dplyr::desc(abs(.data[["similarity"]]))) %>%
-        dplyr::rename_with(target_rename) %>%
+        dplyr::rename_with(targetRename) %>%
         dplyr::ungroup()
 
     filtered

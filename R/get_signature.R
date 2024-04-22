@@ -17,16 +17,16 @@
 #'
 #' @examples
 #' TRUE
-get_signature <- function(sig_id, l1000 = TRUE) {
+getSignature <- function(sigId, l1000 = TRUE) {
     url <- "http://www.ilincs.org/api/ilincsR/downloadSignature"
 
     if (l1000) {
-        num_genes <- 978L
+        numGenes <- 978L
     } else {
-        num_genes <- 25000L
+        numGenes <- 25000L
     }
 
-    query <- list(sigID = sig_id, noOfTopGenes = num_genes)
+    query <- list(sigID = sigId, noOfTopGenes = numGenes)
 
     request <- httr::POST(url, query = query)
 

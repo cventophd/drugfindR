@@ -30,43 +30,43 @@
 #'
 #' @examples
 #' TRUE
-investigate_target <- function(target,
-                               input_lib, output_lib,
-                               filter_threshold = 0.85,
-                               similarity_threshold = 0.321,
-                               paired = TRUE, input_cell_lines = NULL,
-                               output_cell_lines = NULL, discordant = FALSE) {
+investigateTarget <- function(target,
+                              inputLib, outputLib,
+                              filterThreshold = 0.85,
+                              similarityThreshold = 0.321,
+                              paired = TRUE, inputCellLines = NULL,
+                              outputCellLines = NULL, discordant = FALSE) {
     libs <- c("OE", "KD", "CP")
 
-    if (!input_lib %in% libs || !output_lib %in% libs) {
+    if (!inputLib %in% libs || !outputLib %in% libs) {
         stop("Both input and output libraries must be one of 'OE', 'KD', 'CP'")
     }
 
-    if (missing(input_lib) || missing(output_lib)) {
+    if (missing(inputLib) || missing(outputLib)) {
         stop("Please specify both input and output libraries")
     }
 
-    if (input_lib == "OE") {
-        input_metadata <- oe_metadata # nolint: object_usage_linter.
-    } else if (input_lib == "KD") {
-        input_metadata <- kd_metadata # nolint: object_usage_linter.
-    } else if (input_lib == "CP") {
-        input_metadata <- cp_metadata # nolint: object_usage_linter.
+    if (inputLib == "OE") {
+        inputMetadata <- oeMetadata # nolint: object_usage_linter.
+    } else if (inputLib == "KD") {
+        inputMetadata <- kdMetadata # nolint: object_usage_linter.
+    } else if (inputLib == "CP") {
+        inputMetadata <- cpMetadata # nolint: object_usage_linter.
     } else {
         stop("Invalid input_lib")
     }
 
 
-    if (!is.null(input_cell_lines)) {
-        filtered_signature_ids <- input_metadata %>%
+    if (!is.null(inputCellLines)) {
+        filteredSignatureIds <- inputMetadata %>%
             dplyr::filter(
                 stringr::str_to_lower(target) ==
                     stringr::str_to_lower(.data[["Source"]])
             ) %>%
-            dplyr::filter(.data[["SourceCellLine"]] %in% input_cell_lines) %>%
+            dplyr::filter(.data[["SourceCellLine"]] %in% inputCellLines) %>%
             dplyr::pull(.data[["SourceSignature"]])
     } else {
-        filtered_signature_ids <- input_metadata %>%
+        filteredSignatureIds <- input_metadata %>%
             dplyr::filter(
                 stringr::str_to_lower(target) ==
                     stringr::str_to_lower(.data[["Source"]])
@@ -74,69 +74,69 @@ investigate_target <- function(target,
             dplyr::pull(.data[["SourceSignature"]])
     }
 
-    if (length(filtered_signature_ids) == 0L) {
+    if (length(filteredSignatureIds) == 0L) {
         stop("No signatures match the given input criteria.")
     }
 
-    all_signatures <- filtered_signature_ids %>%
-        purrr::map(~ get_signature(.x))
+    allSignatures <- filteredSignatureIds %>%
+        purrr::map(~ getSignature(.x))
 
     if (paired) {
-        filtered_up <- all_signatures %>%
-            purrr::map(~ filter_signature(.x,
+        filteredUp <- allSignatures %>%
+            purrr::map(~ filterSignature(.x,
                 direction = "up",
-                threshold = filter_threshold
+                threshold = filterThreshold
             ))
 
-        filtered_down <- all_signatures %>%
-            purrr::map(~ filter_signature(.x,
+        filteredDown <- allSignatures %>%
+            purrr::map(~ filterSignature(.x,
                 direction = "down",
-                threshold = filter_threshold
+                threshold = filterThreshold
             ))
 
-        concordant_up <- filtered_up %>%
-            purrr::map(~ get_concordants(.x, library = output_lib))
+        concordantUp <- filteredUp %>%
+            purrr::map(~ getConcordants(.x, library = outputLib))
 
-        concordant_down <- filtered_down %>%
-            purrr::map(~ get_concordants(.x, library = output_lib))
+        concordantDown <- filteredDown %>%
+            purrr::map(~ getConcordants(.x, library = outputLib))
 
-        consensus_targets <- purrr::map2(
-            concordant_up, concordant_down,
-            ~ consensus_concordants(.x, .y,
+        consensusTargets <- purrr::map2(
+            concordantUp, concordantDown,
+            ~ consensusConcordants(.x, .y,
                 paired = paired,
-                cell_line = output_cell_lines,
+                cell_line = outputCellLines,
                 discordant = discordant,
-                cutoff = similarity_threshold
+                cutoff = similarityThreshold
             )
         )
     } else {
-        filtered <- all_signatures %>%
-            purrr::map(~ filter_signature(.x,
+        filtered <- allSignatures %>%
+            purrr::map(~ filterSignature(.x,
                 direction = "any",
-                threshold = filter_threshold
+                threshold = filterThreshold
             ))
 
         concordants <- filtered %>%
-            purrr::map(~ get_concordants(.x, library = output_lib))
+            purrr::map(~ getConcordants(.x, library = outputLib))
 
-        consensus_targets <- purrr::map(
+        consensusTargets <- purrr::map(
             concordants,
-            ~ consensus_concordants(.x,
+            ~ consensusConcordants(.x,
                 paired = paired,
-                cell_line = output_cell_lines,
+                cell_line = outputCellLines,
                 discordant = discordant,
-                cutoff = similarity_threshold
+                cutoff = similarityThreshold
             )
         )
     }
 
-    augmented <- consensus_targets %>%
+    augmented <- consensusTargets %>%
         purrr::map2(
             filtered_signature_ids,
             ~ dplyr::mutate(.x, SourceSignature = .y)
         ) %>%
         purrr::map_dfr(~ dplyr::inner_join(.x,
-            input_metadata,
+            inputMetadata,
             by = "SourceSignature"
         )) %>%
         dplyr::select(

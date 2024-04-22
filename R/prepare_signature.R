@@ -22,38 +22,38 @@
 #'
 #' @examples
 #' TRUE
-prepare_signature <- function(dge,
-                              gene_column = "Symbol",
-                              logfc_column = "logFC",
-                              pval_column = "PValue") {
-    if (!gene_column %in% names(dge)) {
+prepareSignature <- function(dge,
+                             geneColumn = "Symbol",
+                             logfcColumn = "logFC",
+                             pvalColumn = "PValue") {
+    if (!geneColumn %in% names(dge)) {
         stop("gene_column should be present in the dataframe")
     }
 
-    if (!logfc_column %in% names(dge)) {
+    if (!logfcColumn %in% names(dge)) {
         stop("logfc_column should be present in the dataframe")
     }
 
-    if (!pval_column %in% names(dge) && !is.na(pval_column)) {
+    if (!pvalColumn %in% names(dge) && !is.na(pvalColumn)) {
         stop("pval_column should be present in the dataframe")
     }
 
-    if (!is.na(pval_column)) {
-        filtered_l1000 <- dge %>%
-            dplyr::filter(.data[[gene_column]] %in% l1000[["SYMBOL"]]) %>%
+    if (!is.na(pvalColumn)) {
+        filteredL1000 <- dge %>%
+            dplyr::filter(.data[[geneColumn]] %in% l1000[["SYMBOL"]]) %>%
             dplyr::select(
                 dplyr::any_of(
-                    c(gene_column, logfc_column, pval_column)
+                    c(geneColumn, logfcColumn, pvalColumn)
                 )
             )
 
         signature <- l1000 %>%
-            dplyr::inner_join(filtered_l1000, by = c(SYMBOL = gene_column)) %>%
+            dplyr::inner_join(filteredL1000, by = c(SYMBOL = geneColumn)) %>%
             dplyr::rename(
                 ID_geneid = !!"ENTREZID",
                 Name_GeneSymbol = !!"L1000",
-                Value_LogDiffExp = !!logfc_column,
-                Significance_pvalue = !!pval_column
+                Value_LogDiffExp = !!logfcColumn,
+                Significance_pvalue = !!pvalColumn
             ) %>%
             dplyr::mutate(signatureID = "InputSig") %>%
             dplyr::select(
@@ -67,16 +67,16 @@ prepare_signature <- function(dge,
             ) %>%
             unique()
     } else {
-        filtered_l1000 <- dge %>%
-            dplyr::filter(!!gene_column %in% l1000[["SYMBOL"]]) %>%
-            dplyr::select(dplyr::any_of(c(gene_column, logfc_column)))
+        filteredL1000 <- dge %>%
+            dplyr::filter(!!geneColumn %in% l1000[["SYMBOL"]]) %>%
+            dplyr::select(dplyr::any_of(c(geneColumn, logfcColumn)))
 
         signature <- l1000 %>%
-            dplyr::inner_join(filtered_l1000, by = c(SYMBOL = gene_column)) %>%
+            dplyr::inner_join(filteredL1000, by = c(SYMBOL = geneColumn)) %>%
             dplyr::rename(
                 ID_geneid = !!"ENTREZID",
                 Name_GeneSymbol = !!"L1000",
-                Value_LogDiffExp = !!logfc_column
+                Value_LogDiffExp = !!logfcColumn
             ) %>%
             dplyr::mutate(signatureID = "InputSig") %>%
             dplyr::select(
