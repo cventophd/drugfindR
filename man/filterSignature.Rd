@@ -2,7 +2,8 @@
 % Please edit documentation in R/filterSignature.R
 \name{filterSignature}
 \alias{filterSignature}
-\title{Filter the L1000 Signature}
+\title{Filter the L1000 Signature
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 filterSignature(signature, direction = "any", threshold = NULL, prop = NULL)
 }
@@ -26,9 +27,6 @@ Cannot be specified with threshold}
 a tibble with the filtered L1000 Signature
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-}
-\details{
 This function filters the L1000 Signature to a given threshold, identifying
 up-regulated or down-regulated or both up- and down-regulated genes
 }

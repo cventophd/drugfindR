@@ -2,7 +2,8 @@
 % Please edit documentation in R/getSignature.R
 \name{getSignature}
 \alias{getSignature}
-\title{Get the L1000 Signature from iLINCS}
+\title{Get the L1000 Signature from iLINCS
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 getSignature(sigId, l1000 = TRUE)
 }
@@ -15,13 +16,13 @@ getSignature(sigId, l1000 = TRUE)
 a tibble with the L1000 Signature
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-}
-\details{
 This function acts as the entrypoint to the iLINCS database.
-This takes in an ID and returns the signature after making a call to the iLINCS
-database. The default mode for \code{drugfindR} is to use L1000 signatures. However,
-if you are trying to retrieve a different transcriptomic signature, that is also supported
+This takes in an ID and returns the signature after making a
+call to the iLINCS
+database. The default mode for \code{drugfindR} is to use L1000
+signatures. However,
+if you are trying to retrieve a different transcriptomic signature,
+that is also supported
 by setting the \code{l1000} parameter to \code{FALSE}.
 }
 \examples{

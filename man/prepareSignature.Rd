@@ -2,7 +2,8 @@
 % Please edit documentation in R/prepareSignature.R
 \name{prepareSignature}
 \alias{prepareSignature}
-\title{Prepare an L1000 Signature froma given differential gene expression output}
+\title{Prepare an L1000 Signature froma given differential gene expression output
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 prepareSignature(
   dge,
@@ -25,9 +26,6 @@ gene expression information}
 A tibble with the L1000 signature.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-}
-\details{
 This function takes a differential gene expression output from any pipeline
 like edgeR or DeSeq2 or any that give you the gene symbol,
 log_2 fold-change and p-value

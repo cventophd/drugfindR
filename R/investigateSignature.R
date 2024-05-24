@@ -4,7 +4,6 @@
 NULL
 
 #' Investigate a given DGE dataset
-#'
 #' `r lifecycle::badge("experimental")`
 #'
 #' This function takes a DGE Data frame and then

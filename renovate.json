@@ -9,7 +9,10 @@
   "dependencyDashboard": true,
   "bumpVersion": "patch",
   "extends": [
-      "config:recommended"
+      "config:best-practices",
+      "group:definitelyTyped",
+      "group:githubArtifactActions",
+      "group:linters"
   ],
   "labels": [
       "dependencies",
@@ -24,6 +27,9 @@
         "matchManagers": [
             "pre-commit",
             "github-actions"
+        ],
+        "schedule": [
+            "before 5am on every weekday"
         ]
     }
 ],

@@ -2,7 +2,8 @@
 % Please edit documentation in R/consensusConcordants.R
 \name{consensusConcordants}
 \alias{consensusConcordants}
-\title{Generate a Consensus list of Targets}
+\title{Generate a Consensus list of Targets
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 consensusConcordants(..., paired = FALSE, cutoff = 0.321, cellLine = NULL)
 }
@@ -20,9 +21,6 @@ dataframes by up and down regulated in prior analysis}
 A tibble with the filtered and deduplicated results
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-}
-\details{
 This function takes a list of (optionally split)
 concordance dataframes and returns
 a ranked list of gene or drug targets that have

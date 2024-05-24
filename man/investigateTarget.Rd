@@ -2,7 +2,8 @@
 % Please edit documentation in R/investigateTarget.R
 \name{investigateTarget}
 \alias{investigateTarget}
-\title{Investigate a Given Gene or Drug}
+\title{Investigate a Given Gene or Drug
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 investigateTarget(
   target,
@@ -42,9 +43,6 @@ restrict the output search to.}
 A tibble with the the similarity scores and signature metadata
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-}
-\details{
 This function takes the name of a gene or a drug and a
 database to use to pull signatures
 from and then queries iLINCS to get concordant signatures

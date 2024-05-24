@@ -1,5 +1,4 @@
 #' Prepare an L1000 Signature froma given differential gene expression output
-#'
 #' `r lifecycle::badge("experimental")`
 #'
 #' This function takes a differential gene expression output from any pipeline

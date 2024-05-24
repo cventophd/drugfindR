@@ -24,7 +24,6 @@ targetRename <- function(inputNames) {
 }
 
 #' Generate a Consensus list of Targets
-#'
 #' `r lifecycle::badge("experimental")`
 #'
 #' This function takes a list of (optionally split)

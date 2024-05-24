@@ -60,5 +60,6 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @import lifecycle
+#' @importFrom lifecycle deprecated
 ## usethis namespace: end
 NULL
