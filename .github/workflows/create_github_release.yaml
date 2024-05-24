@@ -19,10 +19,6 @@ jobs:
     outputs:
       tag_version: ${{ steps.create_release.outputs.tag_version }}
     steps:
-      - name: Install Act dependencies
-        if: ${{ env.ACT }}
-        run: |
-          apt-get update && apt-get install gh
       - name: Checkout
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
@@ -48,10 +44,6 @@ jobs:
         r_version: ['release', 'devel']
     runs-on: ubuntu-latest
     steps:
-      - name: Install Act dependencies
-        if: ${{ env.ACT }}
-        run: |
-          apt-get update && apt-get install gh
       - name: Checkout
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - name: Install system dependencies
