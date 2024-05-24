@@ -22,7 +22,8 @@
     {
         "automerge": true,
         "matchManagers": [
-            "pre-commit"
+            "pre-commit",
+            "github-actions"
         ]
     }
 ],
