@@ -4,7 +4,6 @@
 NULL
 
 #' Investigate a Given Gene or Drug
-#'
 #' `r lifecycle::badge("experimental")`
 #'
 #' This function takes the name of a gene or a drug and a

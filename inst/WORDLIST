@@ -2255,6 +2255,7 @@ Defactinib
 DEFB
 Deferasirox
 Deferiprone
+definitelyTyped
 Deflazacort
 Deforolimus
 DEGS
@@ -3730,6 +3731,7 @@ GIP
 GIPC
 GIPR
 github
+githubArtifactActions
 githubPullRequests
 givenName
 Givinostat
@@ -5090,6 +5092,7 @@ Linoleoylethanolamide
 Linopirdine
 LINS
 Linsitinib
+linters
 Lintitript
 Liothyronine
 LIPA

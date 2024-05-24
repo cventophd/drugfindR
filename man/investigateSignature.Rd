@@ -2,7 +2,8 @@
 % Please edit documentation in R/investigateSignature.R
 \name{investigateSignature}
 \alias{investigateSignature}
-\title{Investigate a given DGE dataset}
+\title{Investigate a given DGE dataset
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}}
 \usage{
 investigateSignature(
   expr,
@@ -60,9 +61,6 @@ the concentration for the input data}
 A tibble with the the similarity scores and signature metadata
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
-}
-\details{
 This function takes a DGE Data frame and then
 finds concordant signatures to that.
 This generates an L1000 signature from the DGE

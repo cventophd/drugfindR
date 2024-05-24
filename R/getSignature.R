@@ -1,11 +1,13 @@
 #' Get the L1000 Signature from iLINCS
-#'
 #' `r lifecycle::badge("experimental")`
 #'
 #' This function acts as the entrypoint to the iLINCS database.
-#' This takes in an ID and returns the signature after making a call to the iLINCS
-#' database. The default mode for `drugfindR` is to use L1000 signatures. However,
-#' if you are trying to retrieve a different transcriptomic signature, that is also supported
+#' This takes in an ID and returns the signature after making a
+#' call to the iLINCS
+#' database. The default mode for `drugfindR` is to use L1000
+#' signatures. However,
+#' if you are trying to retrieve a different transcriptomic signature,
+#' that is also supported
 #' by setting the `l1000` parameter to `FALSE`.
 #'
 #' @param sigId character. The ilincs signature_id
