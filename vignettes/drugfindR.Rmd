@@ -109,7 +109,7 @@ file.
 # Load the signature from the paper
 
 diffexp <- read_tsv(
-    system.file("extdata", "dCovid_diffexp.tsv.tar.gz",
+    system.file("extdata", "dCovid_diffexp.tsv",
         package = "drugfindR"
     )
 )
