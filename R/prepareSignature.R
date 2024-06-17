@@ -23,7 +23,7 @@
 #' # Prepare an L1000 signature from a differential gene expression output
 #'
 #' inputSignature <- read.table(system.file("extdata",
-#'     "dCovid_diffexp.tsv.tar.xz",
+#'     "dCovid_diffexp.tsv",
 #'     package = "drugfindR"
 #' ), header = TRUE)
 #'

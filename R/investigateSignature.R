@@ -45,7 +45,7 @@ NULL
 #'
 #' # Load and prepare the signature
 #' inputSignature <- read.table(system.file("extdata",
-#'     "dCovid_diffexp.tsv.tar.xz",
+#'     "dCovid_diffexp.tsv",
 #'     package = "drugfindR"
 #' ), header = TRUE)
 #'
