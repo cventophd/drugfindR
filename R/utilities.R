@@ -1,8 +1,9 @@
 #' Rename the Target-Related Columns
 #'
 #' @param inputNames A character vector of input_names
-#'
+#' Note: The input names vector can be drugs or genes that are searched within in ilINCS to pull out drug signturess
 #' @return A character vector of new names
+# Note: This function output a list of lists with each individual list containing data on the drug in question. 
 targetRename <- function(inputNames) {
     if ("treatment" %in% inputNames) {
         c(
