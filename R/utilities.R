@@ -3,7 +3,10 @@
 #' @param inputNames A character vector of input_names
 #' Note: The input names vector can be drugs or genes that are searched within in ilINCS to pull out drug signturess
 #' @return A character vector of new names
-# Note: This function output a list of lists with each individual list containing data on the drug in question. 
+# Note: This function output a list of lists. If the string "treatment" is contained within the input names, the following will be contained in the list
+#` TargetSignature, Target, TargetCellLine, TargetTime, Similarity, SignatureDirection, pValue
+# if "treatment" is not contained in inputNames then the followiing will be contained
+# TargetSignature, Target, TargetCellLine, TargetTime, TargetConcentration, Similarity, SignatureDirection, and pValue.
 targetRename <- function(inputNames) {
     if ("treatment" %in% inputNames) {
         c(
